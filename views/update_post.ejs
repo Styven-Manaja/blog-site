@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog web site</title>
+    <link rel="stylesheet" href="/styles/update_post.css">
+</head>
+<body>
+    <a href="/<%= user.pseudo %>/posts">back</a>
+
+    <h1>Edit your post</h1>
+
+    <% posts.forEach(function(post) { %>
+        <% if(post.titre === titre) { %>
+
+            <form action="/update" method="post">
+
+                <input type="hidden" name="id" value="<%= post._id %>">
+                <input type="text" name="newtitre" id="titre" value="<%= post.titre %>">
+                <textarea name="contenu" id="contenu" cols="30" rows="10"><%= post.contenu %></textarea>
+                <input type="submit" value="save" id="save">
+
+            </form>
+
+        <% } %>
+    <% }) %>
+    
+</body>
+</html>

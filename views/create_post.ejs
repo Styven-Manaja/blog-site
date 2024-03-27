@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog web site</title>
+    <link rel="stylesheet" href="styles/create_post.css">
+</head>
+<body>
+    
+    <h1>Create your post</h1>
+
+    <aside>
+        <nav>
+            <ul>
+                <a href="/home"><li>home</li></a>
+                <a href="/new-post"><li>create posts</li></a>
+                <a href="/<%= user.pseudo %>/posts"><li>my posts</li></a>
+                <a href="/contact"><li>contact me</li> </a> 
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+
+        <form action="/create" method="post">
+
+            <input type="text" name="author" id="author" value="<%= user.pseudo %>" style="display: none;">
+
+            <div>
+                <input type="text" name="title" id="title" placeholder="The title here" required>
+            </div>
+
+            <div>
+                <textarea name="content" id="content" cols="30" rows="10" placeholder="Write contents here" required></textarea>
+            </div>
+
+            <input type="submit" value="post" id="submit">
+
+        </form>
+
+    </main>
+
+</body>
+</html>

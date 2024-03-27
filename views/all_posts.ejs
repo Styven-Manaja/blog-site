@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog web site</title>
+    <link rel="stylesheet" href="/styles/all_posts.css">
+</head>
+<body>
+
+    
+
+    <aside>
+        <nav>
+            <ul>
+                <a href="/home"><li>home</li></a>
+                <a href="/new-post"><li>create posts</li></a>
+                <a href="/<%= user.pseudo %>/posts"><li>my posts</li></a>
+                <a href="/contact"><li>contact me</li> </a> 
+            </ul>
+        </nav>
+    </aside>
+
+    <% if(posts.length <= 0) { %>
+        <h1>You haven't created a post yet</h1>
+    <% } else { %>
+
+        <h1>Here's all your posts</h1>
+
+        <div class="all_posts">
+            <ul>
+                <% for(let i = 0; i < posts.length; i++) { %>
+                    <li id="<%= posts[i].titre %>">
+                        <div class="post">
+                            <div class="post_body">
+                                <h2 id="title"><%= posts[i].titre %></h2>                           
+                                <p id="content"><%= posts[i].contenu %></p>
+                            </div>
+                            <div class="post_foot">
+                                <div class="likes">
+                                    <picture>
+                                        <source media="(min-width: 601px)" srcset="/assets/like.png">
+                                        <source media="(max-width: 600px)" srcset="/assets/like-s.png">
+                                        <img src="/assets/like.png" alt="image like">
+                                    </picture>
+                                    <p><%= posts[i].likes %></p>
+                                </div>
+    
+                                <div class="comments">
+                                    <picture>
+                                        <source media="(min-width: 601px)" srcset="/assets/commentaire.png">
+                                        <source media="(max-width: 600px)" srcset="/assets/commentaire-s.png">
+                                        <img src="/assets/commentaire.png" alt="image commentaire">
+                                    </picture>
+                                    <p><%= posts[i].commentaires.length %></p>
+                                </div>
+    
+                                <div>
+                                    <a href="/<%= posts[i].titre %>/edit"><button id="edit">Edit</button></a>
+                                    <form action="/delete" method="post">
+                                        <input type="hidden" name="id" value="<%= posts[i]._id %>">
+                                        <input type="submit" value="Delete" id="delete">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                <% } %>
+            </ul>
+        </div>
+    <% } %>
+    
+
+
+</body>
+</html>

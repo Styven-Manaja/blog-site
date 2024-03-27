@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog web site</title>
+    <link rel="stylesheet" href="styles/login.css">
+</head>
+<body>
+    
+    <header>
+        <h2>Welcome back, login and have fun</h2>
+    </header>
+
+    <main>
+        <form action="/login" method="post">
+
+            <div>
+                <label for="username">Email : </label>
+                <input type="text" id="email" name="email" required>
+            </div>
+    
+            <div>
+                <label for="password">Password : </label>
+                <input type="password" name="password" id="password" required>
+            </div>
+    
+            <div>
+                <% if(errorMessage != null) { %>
+                    <p><%= errorMessage %></p>
+                <% } %>
+            </div>
+    
+            <div class="submit">
+                <input type="submit" value="login" id="submit">
+            </div>
+    
+        </form>
+        <a href="/sign-up">Don't have an account</a>
+    </main>
+
+</body>
+</html>

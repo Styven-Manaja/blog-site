@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog web site</title>
+    <link rel="stylesheet" href="styles/sign_up.css">
+</head>
+<body>
+    
+    <header>
+        <h2>Create your account and join us</h2>
+        <h5 style="color: brown;">Try not to use your real informations here</h5>
+    </header>
+
+    <main>
+        <form action="/sign-up" method="post">
+
+            <div>
+                <label for="username">Nickname : </label>
+                <input type="text" name="username" id="username" required>
+            </div>
+    
+            <div>
+                <label for="email">Email : </label>
+                <input type="email" name="email" id="email" required>
+            </div>
+    
+            <div>
+                <label for="password">Password : </label>
+                <input type="password" name="password" id="password" required minlength="6">
+                <p>Password's length, minimum 6 characters</p>
+            </div>
+    
+            <div class="submit">
+                <input type="submit" value="sign up" id="submit">
+            </div>
+    
+        </form>
+        <a href="/login">Already has an account</a>
+    </main>
+
+</body>
+</html>

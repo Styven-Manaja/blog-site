@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BC site web</title>
+    <link rel="stylesheet" href="/styles/post.css">
+</head>
+<body>
+
+    <% posts.forEach(function(post) { %>
+        <% if(post.titre === titre) { %>
+            <header>
+                <a href="/home/#<%= post.titre %>">home</a>
+                <h4>Posted by : <%= post.auteur %></h4>
+                <h1><%= post.titre %></h1>
+                <h3 id="contenu"><%= post.contenu %></h3>
+            </header>
+        
+            <main>
+                <div class="post_foot">
+                    <div class="like">   
+                            
+                        <div class="boutton">
+                            <input type="hidden" name="id" value="<%= post._id %>" class="postId">
+                            <input type="hidden" name="titre" value="<%= post.titre %>">
+                            <input type="hidden" name="pseudo" value="<%= user.pseudo %>" class="pseudo">
+    
+                            <% if(user.publicationLikee.includes(post._id)) { %>
+    
+                                <button type="button" class="dislikeBtn" data-id="<%= post._id %>" style="display: block;">
+                                    <div class="likes">
+                                        <picture id="dislike">
+                                            <source media="(min-width: 390px)" srcset="/assets/like.png">
+                                            <source media="(max-width: 389px)" srcset="/assets/like-s.png">
+                                            <img src="assets/like.png" alt="image like">
+                                        </picture>
+                                    </div>
+                                </button>
+    
+                                <button type="button" class="likeBtn" data-id="<%= post._id %>" style="display: none;">
+                                    <div class="likes">
+                                        <picture>
+                                            <source media="(min-width: 390px)" srcset="/assets/like.png">
+                                            <source media="(max-width: 389px)" srcset="/assets/like-s.png">
+                                            <img src="assets/like.png" alt="image like">
+                                        </picture>
+                                    </div>
+                                </button>
+    
+                            <% } else { %>
+    
+                                <button type="button" class="dislikeBtn" data-id="<%= post._id %>" style="display: none;">
+                                    <div class="likes">
+                                        <picture id="dislike">
+                                            <source media="(min-width: 390px)" srcset="/assets/like.png">
+                                            <source media="(max-width: 389px)" srcset="/assets/like-s.png">
+                                            <img src="assets/like.png" alt="image like">
+                                        </picture>
+                                    </div>
+                                </button>
+    
+                                <button type="button" class="likeBtn" data-id="<%= post._id %>" style="display: block;">
+                                    <div class="likes">
+                                        <picture>
+                                            <source media="(min-width: 390px)" srcset="/assets/like.png">
+                                            <source media="(max-width: 389px)" srcset="/assets/like-s.png">
+                                            <img src="assets/like.png" alt="image like">
+                                        </picture>
+                                    </div>
+                                </button>
+                                
+                            <% } %>
+                        
+                        </div>
+                        <h4 id="likes-<%= post._id %>"><%= post.likes %></h4>
+    
+                    </div>
+                    
+                    <div class="comment">
+                        <picture>
+                            <source media="(min-width: 390px)" srcset="/assets/commentaire.png">
+                            <source media="(max-width: 389px)" srcset="/assets/commentaire-s.png">
+                            <img src="assets/commentaire.png" alt="image commentaire">
+                        </picture>
+                        <h4><%= post.commentaires.length %></h4>
+                    </div>
+    
+                </div>
+
+                <div class="comments">
+                    <% comment_Array.forEach(function(comment) { %>
+                        <ul>
+                            <li>
+                                <h5><%= comment.auteur %></h5>
+                                <p><%= comment.contenu %></p>
+
+                                <% if(comment.auteur === user.pseudo) { %>
+                                    <div class="edit">
+                                        <form action="/edit_coms" method="post">
+                                            <input type="hidden" name="post_titre" value="<%= post.titre %>">
+                                            <input type="hidden" name="id" value="<%= comment.id %>">
+                                            <input type="text" name="comment" id="new-comment" value="<%= comment.contenu %>" required>
+                                            <input type="submit" value="save" id="save">
+                                        </form>
+                                    </div>
+    
+                                    <button id="edit">edit</button>
+
+                                    <form action="/delete_coms" method="post">
+                                        <input type="hidden" name="post_id" value="<%= post._id %>">
+                                        <input type="hidden" name="post_titre" value="<%= post.titre %>">
+                                        <input type="hidden" name="id" value="<%= comment.id %>">
+                                        <input type="submit" value="delete" id="delete">
+                                    </form>
+                                <% } %>
+
+                            </li>
+                        </ul>
+                    <% }); %>
+                </div>
+            </main>
+
+            <footer>
+                <div class="create-comment">
+                    <form action="/comment" method="post">
+    
+                        <input type="hidden" name="titre" value="<%= post.titre %>">
+                        <input type="hidden" name="auteur" value="<%= user.pseudo %>">
+                        <input type="text" name="contenu" id="comment" placeholder="write your comment here" required>
+                        <button id="send"><img src="/assets/envoyé.png" alt="image envoyé"></button>
+    
+                    </form>
+                </div>
+            </footer>
+        <% } %>
+    <% }); %>    
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts/scripts.js"></script>
+    <script src="/scripts/post.js"></script>
+    
+</body>
+</html>
